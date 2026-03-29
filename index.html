@@ -1,0 +1,1031 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Lens & Light — Photography Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --bg: #0d0c0b;
+    --surface: #161412;
+    --surface2: #1e1b18;
+    --gold: #c9a84c;
+    --gold-light: #e8c97a;
+    --cream: #f0ebe2;
+    --muted: #7a7166;
+    --text: #e8e0d4;
+    --white: #faf8f4;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Jost', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  /* ── SCROLLBAR ── */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 2px; }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.4rem 4rem;
+    background: linear-gradient(to bottom, rgba(13,12,11,0.95), transparent);
+    backdrop-filter: blur(2px);
+    transition: background 0.4s;
+  }
+  nav.scrolled { background: rgba(13,12,11,0.97); }
+
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    font-weight: 300;
+    letter-spacing: 0.12em;
+    color: var(--gold-light);
+    text-decoration: none;
+  }
+  .nav-logo span { font-style: italic; }
+
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a {
+    text-decoration: none;
+    color: var(--muted);
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    transition: color 0.3s;
+  }
+  .nav-links a:hover { color: var(--gold-light); }
+
+  .nav-cta {
+    border: 1px solid var(--gold);
+    color: var(--gold) !important;
+    padding: 0.5rem 1.4rem;
+    border-radius: 0;
+    transition: background 0.3s, color 0.3s !important;
+  }
+  .nav-cta:hover { background: var(--gold) !important; color: var(--bg) !important; }
+
+  /* ── HERO ── */
+  #hero {
+    height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 60% 40%, rgba(201,168,76,0.06) 0%, transparent 70%),
+      radial-gradient(ellipse 50% 80% at 20% 70%, rgba(201,168,76,0.04) 0%, transparent 60%),
+      #0d0c0b;
+  }
+
+  .hero-grain {
+    position: absolute; inset: 0; opacity: 0.04;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    background-size: 200px 200px;
+  }
+
+  .hero-content {
+    position: relative; z-index: 2;
+    text-align: center;
+    padding: 2rem;
+    animation: heroFade 1.4s ease both;
+  }
+
+  @keyframes heroFade {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero-tag {
+    font-size: 0.7rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.5rem;
+    display: block;
+    animation: heroFade 1.4s 0.2s ease both;
+  }
+
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3.5rem, 9vw, 8rem);
+    font-weight: 300;
+    line-height: 1;
+    letter-spacing: -0.01em;
+    color: var(--white);
+    animation: heroFade 1.4s 0.35s ease both;
+  }
+  .hero-title em {
+    font-style: italic;
+    color: var(--gold-light);
+  }
+
+  .hero-subtitle {
+    margin-top: 1.5rem;
+    font-size: 0.9rem;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+    max-width: 400px;
+    margin-left: auto; margin-right: auto;
+    animation: heroFade 1.4s 0.5s ease both;
+  }
+
+  .hero-scroll {
+    position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 0.6rem;
+    color: var(--muted);
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    animation: heroFade 1.4s 0.9s ease both;
+  }
+  .scroll-line {
+    width: 1px; height: 50px;
+    background: linear-gradient(to bottom, var(--gold), transparent);
+    animation: scrollPulse 2s infinite;
+  }
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 1; }
+  }
+
+  /* ── SECTION BASE ── */
+  section { padding: 7rem 2rem; }
+  .container { max-width: 1300px; margin: 0 auto; }
+
+  .section-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--gold);
+    display: flex; align-items: center; gap: 1rem;
+    margin-bottom: 1rem;
+  }
+  .section-label::before {
+    content: '';
+    width: 40px; height: 1px;
+    background: var(--gold);
+  }
+
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    font-weight: 300;
+    color: var(--white);
+    line-height: 1.1;
+  }
+  .section-title em { font-style: italic; color: var(--gold-light); }
+
+  /* ── ABOUT ── */
+  #about { background: var(--surface); }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: center;
+  }
+
+  .about-image-frame {
+    position: relative;
+  }
+  .about-image-frame::before {
+    content: '';
+    position: absolute;
+    top: -16px; left: -16px;
+    right: 16px; bottom: 16px;
+    border: 1px solid rgba(201,168,76,0.3);
+    z-index: 0;
+  }
+  .about-image-placeholder {
+    position: relative; z-index: 1;
+    width: 100%; aspect-ratio: 3/4;
+    background: var(--surface2);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 1rem;
+    cursor: pointer;
+    border: 2px dashed rgba(201,168,76,0.2);
+    transition: border-color 0.3s;
+    overflow: hidden;
+  }
+  .about-image-placeholder:hover { border-color: var(--gold); }
+  .about-image-placeholder img {
+    width: 100%; height: 100%; object-fit: cover;
+    position: absolute; inset: 0;
+  }
+  .upload-overlay {
+    position: absolute; inset: 0;
+    background: rgba(13,12,11,0.7);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 0.5rem;
+    opacity: 0; transition: opacity 0.3s;
+  }
+  .about-image-placeholder:hover .upload-overlay { opacity: 1; }
+  .upload-icon { font-size: 2rem; }
+  .upload-text { font-size: 0.75rem; letter-spacing: 0.15em; color: var(--gold); }
+
+  .about-text p {
+    color: var(--muted);
+    line-height: 1.9;
+    font-size: 0.95rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .about-stats {
+    display: flex; gap: 3rem;
+    margin-top: 2.5rem;
+    padding-top: 2.5rem;
+    border-top: 1px solid var(--surface2);
+  }
+  .stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.5rem;
+    color: var(--gold-light);
+    line-height: 1;
+  }
+  .stat-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 0.3rem;
+  }
+
+  /* ── CATEGORIES NAV ── */
+  .cat-nav {
+    display: flex; gap: 0.5rem;
+    flex-wrap: wrap;
+    margin: 3rem 0 2rem;
+  }
+  .cat-btn {
+    padding: 0.55rem 1.4rem;
+    border: 1px solid var(--surface2);
+    background: transparent;
+    color: var(--muted);
+    font-family: 'Jost', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  .cat-btn:hover, .cat-btn.active {
+    border-color: var(--gold);
+    color: var(--gold);
+    background: rgba(201,168,76,0.05);
+  }
+
+  /* ── GALLERY ── */
+  #portfolio { background: var(--bg); }
+
+  .gallery-grid {
+    columns: 3;
+    column-gap: 1rem;
+  }
+
+  .gallery-item {
+    break-inside: avoid;
+    margin-bottom: 1rem;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    background: var(--surface2);
+    border: 2px dashed rgba(201,168,76,0.15);
+    transition: border-color 0.3s;
+  }
+  .gallery-item:hover { border-color: rgba(201,168,76,0.5); }
+
+  .photo-placeholder {
+    width: 100%;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 0.8rem;
+    padding: 2rem;
+    min-height: 180px;
+    position: relative;
+  }
+  .photo-placeholder.tall { min-height: 300px; }
+  .photo-placeholder.short { min-height: 140px; }
+
+  .photo-placeholder img {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+  }
+
+  .photo-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(13,12,11,0.9) 0%, transparent 60%);
+    opacity: 0; transition: opacity 0.4s;
+    display: flex; flex-direction: column;
+    justify-content: flex-end;
+    padding: 1.2rem;
+  }
+  .gallery-item:hover .photo-overlay { opacity: 1; }
+
+  .photo-cat-tag {
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.3rem;
+  }
+  .photo-title-small {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1rem;
+    color: var(--white);
+  }
+
+  .add-photo-placeholder {
+    border: 2px dashed rgba(201,168,76,0.25);
+    background: var(--surface2);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 0.6rem;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  .add-photo-placeholder:hover {
+    border-color: var(--gold);
+    background: rgba(201,168,76,0.05);
+  }
+  .plus-icon {
+    width: 48px; height: 48px;
+    border: 1px solid var(--gold);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.5rem;
+    color: var(--gold);
+    transition: transform 0.3s;
+  }
+  .add-photo-placeholder:hover .plus-icon { transform: rotate(90deg); }
+
+  /* ── SERVICES ── */
+  #services { background: var(--surface); }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+
+  .service-card {
+    padding: 2.5rem 2rem;
+    border: 1px solid var(--surface2);
+    background: var(--bg);
+    transition: border-color 0.3s, transform 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+  .service-card::after {
+    content: '';
+    position: absolute; bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(to right, var(--gold), transparent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s;
+  }
+  .service-card:hover { border-color: rgba(201,168,76,0.3); transform: translateY(-4px); }
+  .service-card:hover::after { transform: scaleX(1); }
+
+  .service-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3rem;
+    color: rgba(201,168,76,0.15);
+    line-height: 1;
+    margin-bottom: 1rem;
+  }
+  .service-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem;
+    color: var(--white);
+    margin-bottom: 0.8rem;
+  }
+  .service-desc {
+    font-size: 0.82rem;
+    color: var(--muted);
+    line-height: 1.8;
+  }
+  .service-icon { font-size: 1.8rem; margin-bottom: 1rem; }
+
+  /* ── CONTACT ── */
+  #contact { background: var(--bg); }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 6rem;
+    align-items: start;
+    margin-top: 3rem;
+  }
+
+  .contact-info p {
+    color: var(--muted);
+    font-size: 0.9rem;
+    line-height: 1.9;
+    margin-bottom: 2rem;
+  }
+
+  .contact-detail {
+    display: flex; align-items: center; gap: 1rem;
+    margin-bottom: 1rem;
+    color: var(--text);
+    font-size: 0.85rem;
+  }
+  .contact-detail-icon {
+    width: 36px; height: 36px;
+    border: 1px solid var(--surface2);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.9rem;
+    flex-shrink: 0;
+  }
+
+  .contact-form { display: flex; flex-direction: column; gap: 1.2rem; }
+
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+  .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+  .form-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .form-input, .form-select, .form-textarea {
+    background: var(--surface);
+    border: 1px solid var(--surface2);
+    color: var(--text);
+    font-family: 'Jost', sans-serif;
+    font-size: 0.85rem;
+    padding: 0.85rem 1rem;
+    outline: none;
+    transition: border-color 0.3s;
+    width: 100%;
+    resize: none;
+  }
+  .form-input:focus, .form-select:focus, .form-textarea:focus {
+    border-color: var(--gold);
+  }
+  .form-select option { background: var(--surface); }
+
+  .btn-submit {
+    background: var(--gold);
+    color: var(--bg);
+    border: none;
+    padding: 1rem 2.5rem;
+    font-family: 'Jost', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+    align-self: flex-start;
+    margin-top: 0.5rem;
+  }
+  .btn-submit:hover { background: var(--gold-light); transform: translateY(-2px); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--surface);
+    padding: 3rem 2rem;
+    text-align: center;
+    border-top: 1px solid var(--surface2);
+  }
+  .footer-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem;
+    font-weight: 300;
+    color: var(--gold-light);
+    margin-bottom: 1rem;
+  }
+  .footer-links {
+    display: flex; justify-content: center; gap: 2rem;
+    list-style: none; margin-bottom: 1.5rem;
+  }
+  .footer-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    transition: color 0.3s;
+  }
+  .footer-links a:hover { color: var(--gold); }
+  .footer-copy {
+    color: var(--muted);
+    font-size: 0.75rem;
+    opacity: 0.5;
+  }
+
+  /* ── LIGHTBOX ── */
+  .lightbox {
+    position: fixed; inset: 0; z-index: 1000;
+    background: rgba(0,0,0,0.97);
+    display: none; align-items: center; justify-content: center;
+    padding: 2rem;
+  }
+  .lightbox.open { display: flex; }
+  .lightbox img {
+    max-width: 90vw; max-height: 90vh;
+    object-fit: contain;
+  }
+  .lightbox-close {
+    position: absolute; top: 1.5rem; right: 2rem;
+    background: none; border: none;
+    color: var(--gold); font-size: 1.8rem;
+    cursor: pointer;
+    font-family: 'Cormorant Garamond', serif;
+  }
+
+  /* ── MOBILE MENU ── */
+  .hamburger {
+    display: none;
+    flex-direction: column; gap: 5px;
+    cursor: pointer; padding: 4px;
+  }
+  .hamburger span {
+    width: 22px; height: 1px;
+    background: var(--gold);
+    transition: all 0.3s;
+  }
+
+  /* ── REVEAL ANIM ── */
+  .reveal {
+    opacity: 0; transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 1024px) {
+    .services-grid { grid-template-columns: repeat(2, 1fr); }
+    .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .about-image-frame { max-width: 400px; }
+  }
+
+  @media (max-width: 768px) {
+    nav { padding: 1.2rem 1.5rem; }
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+    .gallery-grid { columns: 2; }
+    .services-grid { grid-template-columns: 1fr; }
+    .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .form-row { grid-template-columns: 1fr; }
+    section { padding: 5rem 1.2rem; }
+  }
+
+  @media (max-width: 480px) {
+    .gallery-grid { columns: 1; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<nav id="navbar">
+  <a href="#hero" class="nav-logo">Lens <span>&</span> Light</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#portfolio">Portfolio</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#contact" class="nav-cta">Book Now</a></li>
+  </ul>
+  <div class="hamburger" onclick="toggleMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grain"></div>
+  <div class="hero-content">
+    <span class="hero-tag">Photography Portfolio</span>
+    <h1 class="hero-title">Moments <em>frozen</em><br>in light</h1>
+    <p class="hero-subtitle">Wildlife · Pre-Wedding · Newborn · Birthday</p>
+  </div>
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    <span>Scroll</span>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-image-frame reveal">
+        <div class="about-image-placeholder" id="profilePhotoBox" onclick="triggerUpload('profilePhoto')">
+          <img id="profilePhotoImg" src="" alt="Photographer" style="display:none"/>
+          <div class="upload-overlay">
+            <span class="upload-icon">📷</span>
+            <span class="upload-text">Change Photo</span>
+          </div>
+          <span class="upload-icon" id="profileIcon">📷</span>
+          <span style="color:var(--muted);font-size:0.78rem;letter-spacing:0.12em;" id="profileText">Upload Your Photo</span>
+        </div>
+        <input type="file" id="profilePhoto" accept="image/*" style="display:none" onchange="loadProfilePhoto(event)"/>
+      </div>
+      <div class="about-text reveal">
+        <span class="section-label">About Me</span>
+        <h2 class="section-title">Telling stories<br>through <em>every frame</em></h2>
+        <p style="margin-top:1.5rem">I am a passionate photographer based in Punjab, India, dedicated to capturing life's most precious and unrepeatable moments. From the raw beauty of the wild to the tender intimacy of newborns, every frame tells a unique story.</p>
+        <p>With an eye for light, emotion, and composition, I bring artistry and warmth to every session — ensuring you walk away with images that stir the heart.</p>
+        <div class="about-stats">
+          <div>
+            <div class="stat-num">5+</div>
+            <div class="stat-label">Years Exp.</div>
+          </div>
+          <div>
+            <div class="stat-num">300+</div>
+            <div class="stat-label">Sessions Done</div>
+          </div>
+          <div>
+            <div class="stat-num">4</div>
+            <div class="stat-label">Specialties</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PORTFOLIO -->
+<section id="portfolio">
+  <div class="container">
+    <span class="section-label reveal">My Work</span>
+    <h2 class="section-title reveal">Selected <em>gallery</em></h2>
+
+    <div class="cat-nav reveal">
+      <button class="cat-btn active" onclick="filterGallery('all', this)">All Work</button>
+      <button class="cat-btn" onclick="filterGallery('wildlife', this)">🦁 Wildlife</button>
+      <button class="cat-btn" onclick="filterGallery('prewedding', this)">💍 Pre-Wedding</button>
+      <button class="cat-btn" onclick="filterGallery('newborn', this)">👶 Newborn</button>
+      <button class="cat-btn" onclick="filterGallery('birthday', this)">🎂 Birthday</button>
+    </div>
+
+    <div class="gallery-grid" id="galleryGrid">
+      <!-- Wildlife placeholders -->
+      <div class="gallery-item" data-cat="wildlife" onclick="openLightbox(this)">
+        <div class="photo-placeholder tall">
+          <img src="" alt="" class="gallery-img" style="display:none"/>
+          <span style="font-size:2.5rem">🦁</span>
+          <span style="color:var(--muted);font-size:0.72rem;letter-spacing:0.12em">Wildlife</span>
+          <div class="photo-overlay">
+            <span class="photo-cat-tag">Wildlife</span>
+            <span class="photo-title-small">Golden Hour Hunt</span>
+          </div>
+        </div>
+      </div>
+      <div class="gallery-item" data-cat="prewedding" onclick="openLightbox(this)">
+        <div class="photo-placeholder">
+          <img src="" alt="" class="gallery-img" style="display:none"/>
+          <span style="font-size:2.5rem">💍</span>
+          <span style="color:var(--muted);font-size:0.72rem;letter-spacing:0.12em">Pre-Wedding</span>
+          <div class="photo-overlay">
+            <span class="photo-cat-tag">Pre-Wedding</span>
+            <span class="photo-title-small">Sunset Romance</span>
+          </div>
+        </div>
+      </div>
+      <div class="gallery-item" data-cat="newborn" onclick="openLightbox(this)">
+        <div class="photo-placeholder short">
+          <img src="" alt="" class="gallery-img" style="display:none"/>
+          <span style="font-size:2.5rem">👶</span>
+          <span style="color:var(--muted);font-size:0.72rem;letter-spacing:0.12em">Newborn</span>
+          <div class="photo-overlay">
+            <span class="photo-cat-tag">Newborn</span>
+            <span class="photo-title-small">First Breath</span>
+          </div>
+        </div>
+      </div>
+      <div class="gallery-item" data-cat="birthday" onclick="openLightbox(this)">
+        <div class="photo-placeholder tall">
+          <img src="" alt="" class="gallery-img" style="display:none"/>
+          <span style="font-size:2.5rem">🎂</span>
+          <span style="color:var(--muted);font-size:0.72rem;letter-spacing:0.12em">Birthday</span>
+          <div class="photo-overlay">
+            <span class="photo-cat-tag">Birthday</span>
+            <span class="photo-title-small">Sweet Celebration</span>
+          </div>
+        </div>
+      </div>
+      <div class="gallery-item" data-cat="wildlife" onclick="openLightbox(this)">
+        <div class="photo-placeholder">
+          <img src="" alt="" class="gallery-img" style="display:none"/>
+          <span style="font-size:2.5rem">🦅</span>
+          <span style="color:var(--muted);font-size:0.72rem;letter-spacing:0.12em">Wildlife</span>
+          <div class="photo-overlay">
+            <span class="photo-cat-tag">Wildlife</span>
+            <span class="photo-title-small">Wings in Flight</span>
+          </div>
+        </div>
+      </div>
+      <div class="gallery-item" data-cat="prewedding" onclick="openLightbox(this)">
+        <div class="photo-placeholder short">
+          <img src="" alt="" class="gallery-img" style="display:none"/>
+          <span style="font-size:2.5rem">🌸</span>
+          <span style="color:var(--muted);font-size:0.72rem;letter-spacing:0.12em">Pre-Wedding</span>
+          <div class="photo-overlay">
+            <span class="photo-cat-tag">Pre-Wedding</span>
+            <span class="photo-title-small">Blossom Dreams</span>
+          </div>
+        </div>
+      </div>
+      <div class="gallery-item" data-cat="newborn" onclick="openLightbox(this)">
+        <div class="photo-placeholder tall">
+          <img src="" alt="" class="gallery-img" style="display:none"/>
+          <span style="font-size:2.5rem">🌙</span>
+          <span style="color:var(--muted);font-size:0.72rem;letter-spacing:0.12em">Newborn</span>
+          <div class="photo-overlay">
+            <span class="photo-cat-tag">Newborn</span>
+            <span class="photo-title-small">Tiny Wonders</span>
+          </div>
+        </div>
+      </div>
+      <div class="gallery-item" data-cat="birthday" onclick="openLightbox(this)">
+        <div class="photo-placeholder">
+          <img src="" alt="" class="gallery-img" style="display:none"/>
+          <span style="font-size:2.5rem">🎈</span>
+          <span style="color:var(--muted);font-size:0.72rem;letter-spacing:0.12em">Birthday</span>
+          <div class="photo-overlay">
+            <span class="photo-cat-tag">Birthday</span>
+            <span class="photo-title-small">Joy & Balloons</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ADD MORE BUTTON -->
+      <div class="gallery-item add-photo-placeholder" style="min-height:200px" onclick="triggerBulkUpload()">
+        <div class="plus-icon">+</div>
+        <span style="color:var(--gold);font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;">Add Photos</span>
+        <input type="file" id="bulkUpload" accept="image/*" multiple style="display:none" onchange="addPhotos(event)"/>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="container">
+    <span class="section-label reveal">What I Offer</span>
+    <h2 class="section-title reveal">Photography <em>specialties</em></h2>
+    <div class="services-grid">
+      <div class="service-card reveal">
+        <div class="service-icon">🦁</div>
+        <div class="service-num">01</div>
+        <div class="service-name">Wildlife Photography</div>
+        <p class="service-desc">Tracking nature's most elusive subjects — from birds in flight to big cats on the hunt. Patience, precision, and passion in every shot.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon">💍</div>
+        <div class="service-num">02</div>
+        <div class="service-name">Pre-Wedding Shoots</div>
+        <p class="service-desc">Romantic, cinematic sessions that capture your love story before the big day. Beautiful locations, natural light, timeless memories.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon">👶</div>
+        <div class="service-num">03</div>
+        <div class="service-name">Newborn Photography</div>
+        <p class="service-desc">Gentle, safe, and artful sessions capturing those first precious days of life. Soft wraps, dreamy props, and eternal poses.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon">🎂</div>
+        <div class="service-num">04</div>
+        <div class="service-name">Baby Birthday Shoots</div>
+        <p class="service-desc">First smash cakes, bright balloons, pure joy. Vibrant, fun, and colorful shoots that celebrate every milestone.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <span class="section-label reveal">Get In Touch</span>
+    <h2 class="section-title reveal">Book a <em>session</em></h2>
+    <div class="contact-grid">
+      <div class="reveal">
+        <p>Have a shoot in mind? I'd love to hear from you. Fill out the form or reach out directly and let's create something beautiful together.</p>
+        <div class="contact-detail">
+          <div class="contact-detail-icon">📍</div>
+          <span>Punjab, India</span>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-detail-icon">📞</div>
+          <span>+91 XXXXX XXXXX</span>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-detail-icon">✉️</div>
+          <span>your@email.com</span>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-detail-icon">📷</div>
+          <span>@yourinstahandle</span>
+        </div>
+      </div>
+      <div class="reveal">
+        <div class="contact-form">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Your Name</label>
+              <input class="form-input" type="text" placeholder="Priya Sharma"/>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Phone Number</label>
+              <input class="form-input" type="tel" placeholder="+91 98765 43210"/>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Email Address</label>
+            <input class="form-input" type="email" placeholder="priya@example.com"/>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Type of Shoot</label>
+            <select class="form-select">
+              <option value="">Select a category...</option>
+              <option>🦁 Wildlife Photography</option>
+              <option>💍 Pre-Wedding Shoot</option>
+              <option>👶 Newborn Photography</option>
+              <option>🎂 Baby Birthday Shoot</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Preferred Date</label>
+            <input class="form-input" type="date"/>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Message</label>
+            <textarea class="form-textarea" rows="4" placeholder="Tell me about your vision, location preferences, or any special requests..."></textarea>
+          </div>
+          <button class="btn-submit" onclick="handleSubmit()">Send Enquiry →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Lens <em style="font-style:italic;color:var(--gold)">&</em> Light</div>
+  <ul class="footer-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#portfolio">Portfolio</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <p class="footer-copy">© 2025 Lens & Light Photography · Punjab, India · All rights reserved</p>
+</footer>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+  <img id="lightboxImg" src="" alt=""/>
+</div>
+
+<script>
+// ── NAV SCROLL ──
+window.addEventListener('scroll', () => {
+  document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 60);
+});
+
+// ── MOBILE MENU ──
+function toggleMenu() {
+  const links = document.querySelector('.nav-links');
+  if (links.style.display === 'flex') {
+    links.style.display = '';
+  } else {
+    links.style.display = 'flex';
+    links.style.flexDirection = 'column';
+    links.style.position = 'fixed';
+    links.style.top = '70px';
+    links.style.left = '0';
+    links.style.right = '0';
+    links.style.background = 'rgba(13,12,11,0.98)';
+    links.style.padding = '2rem';
+    links.style.gap = '1.5rem';
+    links.style.zIndex = '99';
+  }
+}
+
+// ── SCROLL REVEAL ──
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) e.target.classList.add('visible');
+  });
+}, { threshold: 0.15 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// ── GALLERY FILTER ──
+function filterGallery(cat, btn) {
+  document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.gallery-item[data-cat]').forEach(item => {
+    if (cat === 'all' || item.dataset.cat === cat) {
+      item.style.display = '';
+    } else {
+      item.style.display = 'none';
+    }
+  });
+}
+
+// ── PROFILE PHOTO ──
+function triggerUpload(id) { document.getElementById(id).click(); }
+
+function loadProfilePhoto(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = ev => {
+    const img = document.getElementById('profilePhotoImg');
+    img.src = ev.target.result;
+    img.style.display = 'block';
+    document.getElementById('profileIcon').style.display = 'none';
+    document.getElementById('profileText').style.display = 'none';
+  };
+  reader.readAsDataURL(file);
+}
+
+// ── ADD PHOTOS TO GALLERY ──
+function triggerBulkUpload() {
+  document.getElementById('bulkUpload').click();
+}
+
+function addPhotos(e) {
+  const files = Array.from(e.target.files);
+  const grid = document.getElementById('galleryGrid');
+  const addBtn = grid.querySelector('.add-photo-placeholder');
+
+  files.forEach(file => {
+    const reader = new FileReader();
+    reader.onload = ev => {
+      const item = document.createElement('div');
+      item.className = 'gallery-item';
+      item.dataset.cat = 'all';
+
+      // Prompt for category
+      const cat = prompt('Category for this photo?\n1 = Wildlife\n2 = Pre-Wedding\n3 = Newborn\n4 = Birthday', '1');
+      const catMap = {'1':'wildlife','2':'prewedding','3':'newborn','4':'birthday'};
+      const catLabel = {'1':'Wildlife','2':'Pre-Wedding','3':'Newborn','4':'Birthday'};
+      item.dataset.cat = catMap[cat] || 'wildlife';
+
+      item.innerHTML = `
+        <div class="photo-placeholder" onclick="openLightboxImg('${ev.target.result}')">
+          <img src="${ev.target.result}" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block"/>
+          <div class="photo-overlay">
+            <span class="photo-cat-tag">${catLabel[cat] || 'Wildlife'}</span>
+            <span class="photo-title-small">${file.name.replace(/\.[^.]+$/, '')}</span>
+          </div>
+        </div>`;
+      grid.insertBefore(item, addBtn);
+    };
+    reader.readAsDataURL(file);
+  });
+  e.target.value = '';
+}
+
+// ── LIGHTBOX ──
+function openLightbox(item) {
+  const img = item.querySelector('img.gallery-img, img[style*="display:block"]');
+  if (!img || (!img.src || img.src.endsWith('/'))) return;
+  document.getElementById('lightboxImg').src = img.src;
+  document.getElementById('lightbox').classList.add('open');
+}
+function openLightboxImg(src) {
+  document.getElementById('lightboxImg').src = src;
+  document.getElementById('lightbox').classList.add('open');
+  event.stopPropagation();
+}
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('open');
+}
+document.getElementById('lightbox').addEventListener('click', e => {
+  if (e.target === e.currentTarget) closeLightbox();
+});
+document.addEventListener('keydown', e => { if(e.key==='Escape') closeLightbox(); });
+
+// ── FORM SUBMIT ──
+function handleSubmit() {
+  alert('Thank you! Your enquiry has been sent. I\'ll get back to you soon 📷');
+}
+</script>
+</body>
+</html>
